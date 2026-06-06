@@ -1,46 +1,25 @@
-import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { useParams, Link, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileActionBar } from "@/components/site/MobileActionBar";
-import { services, whatsappLink, defaultWhatsAppMessage } from "@/config/site";
+import { services, whatsappLink } from "@/config/site";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/servicos/$slug")({
-  loader: ({ params }) => {
-    const service = services.find((s) => s.slug === params.slug);
-    if (!service) throw notFound();
-    return { service };
-  },
-  head: ({ loaderData }) => {
-    const label = loaderData?.service.label ?? "Serviço";
-    return {
-      meta: [
-        { title: `${label} na Zona Sul de SP | WF Bombas` },
-        {
-          name: "description",
-          content: `${label} com diagnóstico gratuito e atendimento rápido em Pedreira, Cidade Dutra, Grajaú, Santo Amaro e região.`,
-        },
-        { property: "og:title", content: `${label} | WF Bombas` },
-        {
-          property: "og:description",
-          content: `Solicite ${label.toLowerCase()} na Zona Sul de São Paulo.`,
-        },
-        { property: "og:url", content: `/servicos/${loaderData?.service.slug}` },
-      ],
-      links: [{ rel: "canonical", href: `/servicos/${loaderData?.service.slug}` }],
-    };
-  },
-  component: ServicePage,
-  notFoundComponent: () => (
-    <div className="flex min-h-screen items-center justify-center">Serviço não encontrado.</div>
-  ),
-  errorComponent: () => (
-    <div className="flex min-h-screen items-center justify-center">Erro ao carregar.</div>
-  ),
-});
+export default function ServicePage() {
+  const { slug } = useParams<{ slug: string }>();
+  const service = services.find((s) => s.slug === slug);
 
-function ServicePage() {
-  const { service } = Route.useLoaderData();
+  useEffect(() => {
+    if (service) {
+      document.title = `${service.label} na Zona Sul de SP | WF Bombas`;
+    }
+  }, [service]);
+
+  if (!service) {
+    return <Navigate to="/404" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />

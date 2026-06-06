@@ -1,46 +1,25 @@
-import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { useParams, Link, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileActionBar } from "@/components/site/MobileActionBar";
 import { areas, whatsappLink } from "@/config/site";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/areas/$slug")({
-  loader: ({ params }) => {
-    const area = areas.find((a) => a.slug === params.slug);
-    if (!area) throw notFound();
-    return { area };
-  },
-  head: ({ loaderData }) => {
-    const label = loaderData?.area.label ?? "Bairro";
-    return {
-      meta: [
-        { title: `Bomba d'água em ${label} | WF Bombas` },
-        {
-          name: "description",
-          content: `Instalação, manutenção e conserto de bomba d'água em ${label}, São Paulo. Atendimento rápido e diagnóstico gratuito.`,
-        },
-        { property: "og:title", content: `Bomba d'água em ${label} | WF Bombas` },
-        {
-          property: "og:description",
-          content: `Serviço de bomba d'água em ${label}, Zona Sul de SP.`,
-        },
-        { property: "og:url", content: `/areas/${loaderData?.area.slug}` },
-      ],
-      links: [{ rel: "canonical", href: `/areas/${loaderData?.area.slug}` }],
-    };
-  },
-  component: AreaPage,
-  notFoundComponent: () => (
-    <div className="flex min-h-screen items-center justify-center">Bairro não encontrado.</div>
-  ),
-  errorComponent: () => (
-    <div className="flex min-h-screen items-center justify-center">Erro ao carregar.</div>
-  ),
-});
+export default function AreaPage() {
+  const { slug } = useParams<{ slug: string }>();
+  const area = areas.find((a) => a.slug === slug);
 
-function AreaPage() {
-  const { area } = Route.useLoaderData();
+  useEffect(() => {
+    if (area) {
+      document.title = `Bomba d'água em ${area.label} | WF Bombas`;
+    }
+  }, [area]);
+
+  if (!area) {
+    return <Navigate to="/404" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />

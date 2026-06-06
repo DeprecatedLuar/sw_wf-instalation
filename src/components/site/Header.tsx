@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Menu, X, Phone, MessageCircle, ChevronDown } from "lucide-react";
 import { site, services, areas, whatsappLink, defaultWhatsAppMessage } from "@/config/site";
 
@@ -50,8 +50,7 @@ export function Header() {
                   {services.map((s) => (
                     <Link
                       key={s.slug}
-                      to="/servicos/$slug"
-                      params={{ slug: s.slug }}
+                      to={`/servicos/${s.slug}`}
                       className="block rounded-sm px-3 py-2 text-sm text-foreground hover:bg-muted"
                     >
                       {s.label}
@@ -76,8 +75,7 @@ export function Header() {
                   {areas.map((a) => (
                     <Link
                       key={a.slug}
-                      to="/areas/$slug"
-                      params={{ slug: a.slug }}
+                      to={`/areas/${a.slug}`}
                       className="block rounded-sm px-3 py-2 text-sm text-foreground hover:bg-muted"
                     >
                       {a.label}
@@ -126,8 +124,7 @@ export function Header() {
               {services.map((s) => (
                 <Link
                   key={s.slug}
-                  to="/servicos/$slug"
-                  params={{ slug: s.slug }}
+                  to={`/servicos/${s.slug}`}
                   className="py-1.5 text-sm text-on-dark/80"
                   onClick={() => setOpen(false)}
                 >
@@ -144,8 +141,7 @@ export function Header() {
               {areas.map((a) => (
                 <Link
                   key={a.slug}
-                  to="/areas/$slug"
-                  params={{ slug: a.slug }}
+                  to={`/areas/${a.slug}`}
                   className="py-1.5 text-sm text-on-dark/80"
                   onClick={() => setOpen(false)}
                 >

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Phone, MessageCircle, MapPin } from "lucide-react";
 import { site, services, areas, whatsappLink, defaultWhatsAppMessage } from "@/config/site";
 
@@ -27,7 +27,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm text-on-dark/70">
               {services.map((s) => (
                 <li key={s.slug}>
-                  <Link to="/servicos/$slug" params={{ slug: s.slug }} className="hover:text-accent">
+                  <Link to={`/servicos/${s.slug}`} className="hover:text-accent">
                     {s.label}
                   </Link>
                 </li>
@@ -42,7 +42,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm text-on-dark/70">
               {areas.map((a) => (
                 <li key={a.slug}>
-                  <Link to="/areas/$slug" params={{ slug: a.slug }} className="hover:text-accent">
+                  <Link to={`/areas/${a.slug}`} className="hover:text-accent">
                     {a.label}
                   </Link>
                 </li>

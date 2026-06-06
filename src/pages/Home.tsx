@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import {
   MessageCircle,
   Phone,
@@ -16,6 +15,7 @@ import {
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
+import { useEffect } from "react";
 import heroPump from "@/assets/hero-pump.jpg";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -29,57 +29,6 @@ import {
   whatsappLink,
   defaultWhatsAppMessage,
 } from "@/config/site";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      {
-        title:
-          "WF Bombas | Instalação e Manutenção de Bombas d'Água | Zona Sul SP",
-      },
-      {
-        name: "description",
-        content:
-          "Instalação, manutenção e conserto de bombas d'água em Pedreira, Cidade Dutra, Grajaú, Santo Amaro e região. Atendimento em até 2h. Ligue (11) 96806-6749.",
-      },
-      {
-        property: "og:title",
-        content:
-          "WF Bombas | Instalação e Manutenção de Bombas d'Água na Zona Sul de SP",
-      },
-      {
-        property: "og:description",
-        content:
-          "Atendimento rápido para bombas residenciais, condominiais e comerciais na Zona Sul de São Paulo.",
-      },
-      { property: "og:url", content: "/" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: site.name,
-          telephone: site.phoneE164,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "R. Dr. José Sílvio de Camargo",
-            addressLocality: "Pedreira, São Paulo",
-            addressRegion: site.region,
-            postalCode: site.postalCode,
-            addressCountry: "BR",
-          },
-          areaServed: areas.map((a) => a.label),
-          url: "/",
-          sameAs: [site.gbpUrl],
-        }),
-      },
-    ],
-  }),
-  component: Index,
-});
 
 const serviceIcons: Record<string, typeof Wrench> = {
   "instalacao-bomba-dagua": Wrench,
@@ -108,7 +57,11 @@ const serviceBlurbs: Record<string, string> = {
     "Serviço completo para captação de poço, do motor ao quadro de comando.",
 };
 
-function Index() {
+export default function Home() {
+  useEffect(() => {
+    document.title = "WF Bombas | Instalação e Manutenção de Bombas d'Água | Zona Sul SP";
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -246,8 +199,7 @@ function Index() {
               return (
                 <Link
                   key={s.slug}
-                  to="/servicos/$slug"
-                  params={{ slug: s.slug }}
+                  to={`/servicos/${s.slug}`}
                   className="group flex flex-col rounded-sm border border-border bg-card p-6 transition hover:border-secondary hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-primary text-primary-foreground">
@@ -327,8 +279,7 @@ function Index() {
             {areas.map((a) => (
               <Link
                 key={a.slug}
-                to="/areas/$slug"
-                params={{ slug: a.slug }}
+                to={`/areas/${a.slug}`}
                 className="group flex items-center justify-between rounded-sm border border-border bg-card px-4 py-4 transition hover:border-secondary hover:shadow-sm"
               >
                 <span className="flex items-center gap-3">
