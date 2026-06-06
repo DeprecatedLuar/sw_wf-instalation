@@ -2,7 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { MobileActionBar } from "@/components/site/MobileActionBar";
+import { WhatsAppBubble } from "@/components/site/WhatsAppBubble";
 import { areas, whatsappLink } from "@/config/site";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 
@@ -47,8 +47,7 @@ export default function AreaPage() {
         </div>
       </section>
       <Footer />
-      <div className="h-16 lg:hidden" aria-hidden />
-      <MobileActionBar />
+      <WhatsAppBubble />
     </div>
   );
 }

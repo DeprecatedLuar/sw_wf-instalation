@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import heroPump from "@/assets/hero-pump.jpg";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { MobileActionBar } from "@/components/site/MobileActionBar";
+import { WhatsAppBubble } from "@/components/site/WhatsAppBubble";
 import { PortfolioCarousel } from "@/components/site/PortfolioCarousel";
 import { ReviewsWidget } from "@/components/site/ReviewsWidget";
 import {
@@ -74,7 +74,7 @@ export default function Home() {
           aria-hidden="true"
           width={1920}
           height={1080}
-          className="absolute inset-0 hidden h-full w-full object-cover opacity-40 md:block"
+          className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
         <div
           className="absolute inset-0 bg-gradient-to-br from-surface-darker via-surface-darker/95 to-surface-dark/80 md:from-surface-darker/95 md:via-surface-darker/70 md:to-surface-dark/60"
@@ -332,8 +332,7 @@ export default function Home() {
       </section>
 
       <Footer />
-      <div className="h-16 lg:hidden" aria-hidden />
-      <MobileActionBar />
+      <WhatsAppBubble />
     </div>
   );
 }
