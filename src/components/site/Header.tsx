@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Phone, MessageCircle, ChevronDown } from "lucide-react";
 import { site, services, areas, whatsappLink, defaultWhatsAppMessage } from "@/config/site";
+import logo from "@/assets/logo.webp";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -23,10 +24,8 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:h-20 lg:px-8">
-        <Link to="/" className="flex items-center gap-2 text-on-dark">
-          <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-accent font-display text-lg font-bold text-accent-foreground">
-            WF
-          </div>
+        <Link to="/" className="flex items-center gap-3 text-on-dark">
+          <img src={logo} alt="WF Bombas" className="h-10 w-auto" />
           <div className="font-display text-base font-semibold leading-tight tracking-tight">
             <div>WF Bombas</div>
             <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-on-dark/60">
